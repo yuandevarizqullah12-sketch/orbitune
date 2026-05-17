@@ -33,7 +33,7 @@ function setRefreshTokenCookie(res, refreshToken) {
 }
 
 function clearRefreshTokenCookie(res) {
-  res.setHeader('Set-Cookie', `spotify_refresh_token=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0`);
+  res.setHeader('Set-Cookie', `spotify_refresh_token=; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=0`);
 }
 
 // Exchange code for tokens
