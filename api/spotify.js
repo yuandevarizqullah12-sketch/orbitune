@@ -1,6 +1,6 @@
 // /api/spotify.js - Vercel Serverless Function
 // Handles OAuth, token refresh, Spotify API proxy
-const fetch = require('node-fetch'); // optional, Node 18+ global fetch works
+
 // For Vercel, use global fetch. We'll keep it standard.
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
