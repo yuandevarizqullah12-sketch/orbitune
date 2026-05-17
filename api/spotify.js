@@ -111,7 +111,7 @@ async function callSpotifyApi(accessToken, endpoint, method = 'GET', body = null
 // Main Handler
 module.exports = async (req, res) => {
   // Enable CORS for dev (optional but safe)
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Origin', 'https://orbitune.vercel.app');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
