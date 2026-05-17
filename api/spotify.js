@@ -145,10 +145,11 @@ module.exports = async (req, res) => {
         const tokens = await exchangeCodeForTokens(code, redirectUri);
         setRefreshTokenCookie(res, tokens.refresh_token);
         // redirect back to frontend with success flag
-        const frontendUrl = '/?login=success';
-        res.statusCode = 302;
-        res.setHeader('Location', frontendUrl);
-        return res.end();
+        return res.status(200).send(`
+           <script>
+        window.location.href='/?login=success';
+           </script>
+      `);
       } catch (err) {
         console.error(err);
         res.statusCode = 500;
