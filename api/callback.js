@@ -1,5 +1,4 @@
 // /api/callback.js - Exchange code for tokens, set HttpOnly cookie, redirect to frontend
-const fetch = require('node-fetch');
 
 module.exports = async (req, res) => {
   const { code, error } = req.query;

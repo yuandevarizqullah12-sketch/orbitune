@@ -1,5 +1,4 @@
 // /api/spotify.js - Handle POST requests from frontend (search, play, etc.)
-const fetch = require('node-fetch');
 
 // Helper to parse cookie header
 function parseCookies(cookieHeader) {
