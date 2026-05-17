@@ -7,16 +7,12 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <meta name="description" content="Minimalist futuristic Spotify music controller with glassmorphism and neon accents.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <!-- dynamic background layer (blurred album art) -->
   <div class="bg-blur-layer" id="bgBlurLayer"></div>
   <div class="overlay-dark"></div>
 
   <div class="app-container">
-    <!-- Header -->
     <header class="glass-header">
       <div class="logo">
         <i class="fab fa-spotify neon-icon"></i>
@@ -32,9 +28,7 @@
       </div>
     </header>
 
-    <!-- Main Content -->
     <main>
-      <!-- Search Area -->
       <div class="search-section">
         <div class="search-container glass-card">
           <i class="fas fa-search search-icon"></i>
@@ -42,7 +36,6 @@
           <button id="clearSearch" class="clear-search hidden"><i class="fas fa-times-circle"></i></button>
         </div>
         <div id="searchResults" class="results-grid">
-          <!-- dynamic search results -->
           <div class="empty-state hidden" id="emptyState">
             <i class="fas fa-music"></i>
             <p>Find your next vibe ✨</p>
@@ -50,7 +43,6 @@
         </div>
       </div>
 
-      <!-- Now Playing + Controller -->
       <div class="now-playing-section">
         <div class="now-playing-card glass-card" id="nowPlayingCard">
           <div class="album-art-large">

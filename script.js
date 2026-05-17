@@ -1,5 +1,4 @@
-// Orbitune - Frontend Controller
-// API endpoint base (relative, works with Vercel)
+// Orbitune - Frontend Controller (Refactored for separated API endpoints)
 const API_BASE = '/api/spotify';
 
 // DOM elements
@@ -27,7 +26,7 @@ const statusTextSpan = document.getElementById('statusText');
 const bgBlurLayer = document.getElementById('bgBlurLayer');
 const loadingOverlay = document.getElementById('loadingOverlay');
 
-// Global state
+// State
 let isLoggedIn = false;
 let currentTrackUri = null;
 let pollingInterval = null;
@@ -40,14 +39,14 @@ function showLoading(show) {
   else loadingOverlay.classList.add('hidden');
 }
 
-// API caller to backend
+// API caller to backend (always POST to /api/spotify)
 async function callBackend(action, body = {}) {
   try {
     const response = await fetch(API_BASE, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action, ...body }),
-      credentials: 'include' // send cookies (refresh_token)
+      credentials: 'include' // important for cookies
     });
     if (!response.ok) {
       const errText = await response.text();
@@ -60,7 +59,7 @@ async function callBackend(action, body = {}) {
   }
 }
 
-// Check login status from backend
+// Check login status via /api/spotify { action: "me" }
 async function checkLoginStatus() {
   try {
     const data = await callBackend('me');
@@ -76,7 +75,6 @@ async function checkLoginStatus() {
       throw new Error('Not logged in');
     }
   } catch (e) {
-    // Not authenticated
     isLoggedIn = false;
     loginBtn.classList.remove('hidden');
     userProfileDiv.classList.add('hidden');
@@ -122,7 +120,6 @@ async function fetchNowPlaying() {
       statusTextSpan.innerHTML = `<i class="fas fa-volume-up"></i> Playing on ${data.device?.name || 'device'}`;
       currentTrackUri = track.uri;
     } else {
-      // No active playback
       if (currentTitle.textContent !== 'Not playing') resetNowPlayingUI();
       statusTextSpan.innerHTML = '<i class="fas fa-volume-off"></i> No active playback';
       playPauseIcon.className = 'fas fa-play';
@@ -150,7 +147,7 @@ function formatTime(ms) {
 
 function startPollingNowPlaying() {
   if (pollingInterval) clearInterval(pollingInterval);
-  fetchNowPlaying(); // immediate
+  fetchNowPlaying();
   pollingInterval = setInterval(fetchNowPlaying, 2000);
 }
 
@@ -213,7 +210,6 @@ function renderSearchResults(tracks) {
     </div>
   `).join('');
 
-  // add event listeners to play buttons
   document.querySelectorAll('.play-btn-card').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -311,13 +307,14 @@ volumeSlider.addEventListener('input', (e) => {
   setVolume(val);
 });
 
+// LOGIN BUTTON: langsung redirect ke /api/login (GET)
 loginBtn.addEventListener('click', () => {
-  window.location.href = '/api/spotify?action=login';
+  window.location.href = '/api/login';
 });
 
-logoutBtn.addEventListener('click', async () => {
-  // simple client logout: just redirect to logout endpoint? but we can clear session by calling backend
-  window.location.href = '/api/spotify?action=logout';
+// LOGOUT BUTTON: redirect ke /api/logout
+logoutBtn.addEventListener('click', () => {
+  window.location.href = '/api/logout';
 });
 
 clearSearchBtn.addEventListener('click', () => {
@@ -327,14 +324,13 @@ clearSearchBtn.addEventListener('click', () => {
   clearSearchBtn.classList.add('hidden');
 });
 
-// On page load: check login status and setup
+// On page load: check login status
 window.addEventListener('DOMContentLoaded', async () => {
   showLoading(true);
   await checkLoginStatus();
   showLoading(false);
-  // Auto detect if redirected from login
+  // If redirected with login=success parameter, remove it from URL
   if (window.location.search.includes('login=success')) {
     window.history.replaceState({}, '', '/');
-    await checkLoginStatus();
   }
 });
