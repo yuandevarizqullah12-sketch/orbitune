@@ -12,7 +12,7 @@ function getRedirectUri(req) {
   if (REDIRECT_URI) return REDIRECT_URI;
   const protocol = req.headers['x-forwarded-proto'] || 'https';
   const host = req.headers.host;
-  return `${protocol}://${host}/api/spotify`;
+  return `${protocol}://${host}/api/spotify?action=callback`;
 }
 
 // Helper to parse cookies
