@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Orbitune — Futuristic Spotify Controller</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="description" content="Minimalist futuristic Spotify music controller with glassmorphism and neon accents.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <!-- dynamic background layer (blurred album art) -->
+  <div class="bg-blur-layer" id="bgBlurLayer"></div>
+  <div class="overlay-dark"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="glass-header">
+      <div class="logo">
+        <i class="fab fa-spotify neon-icon"></i>
+        <h1>Orbitune</h1>
+      </div>
+      <button id="loginBtn" class="btn-login neon-glow">
+        <i class="fab fa-spotify"></i> Connect Spotify
+      </button>
+      <div id="userProfile" class="user-profile hidden">
+        <img id="userAvatar" src="" alt="avatar">
+        <span id="userName"></span>
+        <button id="logoutBtn" class="logout-icon"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Search Area -->
+      <div class="search-section">
+        <div class="search-container glass-card">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Search songs, artists, albums..." autocomplete="off">
+          <button id="clearSearch" class="clear-search hidden"><i class="fas fa-times-circle"></i></button>
+        </div>
+        <div id="searchResults" class="results-grid">
+          <!-- dynamic search results -->
+          <div class="empty-state hidden" id="emptyState">
+            <i class="fas fa-music"></i>
+            <p>Find your next vibe ✨</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Now Playing + Controller -->
+      <div class="now-playing-section">
+        <div class="now-playing-card glass-card" id="nowPlayingCard">
+          <div class="album-art-large">
+            <img id="currentAlbumArt" src="https://placehold.co/300x300/1a1a1a/1DB954?text=Orbitune" alt="album art">
+          </div>
+          <div class="track-info">
+            <h3 id="currentTitle">Not playing</h3>
+            <p id="currentArtist">—</p>
+          </div>
+          <div class="progress-container">
+            <span id="currentTime" class="time">0:00</span>
+            <div class="progress-bar-bg">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <span id="totalDuration" class="time">0:00</span>
+          </div>
+          <div class="playback-status" id="playbackStatus">
+            <i class="fas fa-volume-off"></i> <span id="statusText">No active device</span>
+          </div>
+        </div>
+
+        <div class="controller-card glass-card">
+          <div class="controls">
+            <button id="prevBtn" class="ctrl-btn" title="Previous">
+              <i class="fas fa-step-backward"></i>
+            </button>
+            <button id="playPauseBtn" class="ctrl-btn main-ctrl" title="Play/Pause">
+              <i id="playPauseIcon" class="fas fa-play"></i>
+            </button>
+            <button id="nextBtn" class="ctrl-btn" title="Next">
+              <i class="fas fa-step-forward"></i>
+            </button>
+          </div>
+          <div class="volume-control">
+            <i class="fas fa-volume-up"></i>
+            <input type="range" id="volumeSlider" min="0" max="100" value="50">
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer-note">
+      <span>✨ Orbitune · Immersive control</span>
+    </footer>
+  </div>
+
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
